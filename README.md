@@ -113,23 +113,18 @@ Use `onSnapshot()` for live updates when Firestore data changes
 
 ---
 
-👤 Author
+## 👤 Author
 
-Umair Ahmed Ansari
+**Umair Ahmed Ansari**
 
-📧 Email: umair.ansari.92@gmail.com
+* 📧 Email: [umair.ansari.92@gmail.com](mailto:umair.ansari.92@gmail.com)
+* 📧 Alternate: [dataversetechnologies6@gmail.com](mailto:dataversetechnologies6@gmail.com)
+* 📱 WhatsApp / Mobile: +923138624722
+* 🌐 Portfolio: [https://dataversetechnologies.vercel.app/](https://dataversetechnologies.vercel.app/)
+* 🔗 LinkedIn: [linkedin.com/in/umairansari92](https://linkedin.com/in/umairansari92)
+* 🌲 Linktree: [linktr.ee/umair.ansari.92](https://linktr.ee/umair.ansari.92)
+* 📷 Instagram: [@umair.ansari.92](https://www.instagram.com/umair.ansari.92/) | [@dataversetechnologies](https://www.instagram.com/dataversetechnologies/)
 
-📧 Alternate: dataversetechnologies6@gmail.com
-
-📱 WhatsApp / Mobile: +923138624722
-
-🌐 Portfolio: https://dataversetechnologies.vercel.app/
-
-🔗 LinkedIn: linkedin.com/in/umairansari92
-
-🌲 Linktree: linktr.ee/umair.ansari.92
-
-📷 Instagram: @umair.ansari.92 | @dataversetechnologies
 ---
 
 ## 📜 License
