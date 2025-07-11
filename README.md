@@ -1,59 +1,137 @@
+# 📝 Firestore ToDo App
 
-# ✅ To Do App
-
-A simple yet powerful To-Do List web application built using **HTML**, **CSS**, and **JavaScript**. Manage your daily tasks, edit them, mark them as completed, or delete them — all with a clean UI and interactive controls.
-
-## 🔥 Features
-
-- ➕ Add new tasks  
-- 📝 Edit existing tasks  
-- ✅ Mark tasks as complete  
-- ❌ Delete individual tasks  
-- ⚠️ Input validation with notification message  
-- 🎨 Stylish UI with custom notification & favicon  
-- 🖱️ Buttons with icons for better UX
-
-## 🚀 Live Preview
- 
-[Live Demo](https://to-do-app-lime-mu.vercel.app/)
-
-
-## 📸 Screenshots
-
-![screenshot](./screenshot.png)  
-*Simple and user-friendly interface*
-
-## 📁 Project Structure
-
-```bash
-📂 To-Do-App/
-├── 📄 index.html
-├── 📄 style.css
-├── 📄 app.js
-├── 📄 favicon.png
-└── 📄 README.md
-```
-
-## 🛠️ Technologies Used
-
-- HTML5
-- CSS3
-- JavaScript (DOM Manipulation)
-
-## 💡 How to Use
-
-1. Clone or Download the project.
-2. Open `index.html` in your browser.
-3. Add tasks, mark them complete, edit or delete as needed.
-4. Enjoy productivity! 🚀
-
-## 🌐 Author
-
-**Umair Ahmed**  
-📧 umair.ansari.92@gmail.com  
-📞 +92 313 8624722  
-🌍 [GitHub Profile](https://github.com/umairansari92)
+A lightweight, modular JavaScript ToDo application using Firebase Firestore.
+Features include task creation, editing, deletion, and optional real-time database sync.
 
 ---
 
-> Made with ❤️ for learning, practicing, and improving frontend skills.
+## 🚀 Features
+
+* ✅ Add, edit, and delete tasks
+* 📂 Tasks stored in Firestore (`todos` collection)
+* 🧹 Uses Firebase’s modular SDK (v10+) via CDN
+* ⚡ Optional real-time sync with `onSnapshot`
+* 🩸 Simple UI using Bootstrap utility classes
+
+---
+
+## 🔧 Tech Stack
+
+* **Frontend**: Vanilla JS (ES6 modules), HTML, CSS (with Bootstrap)
+* **Backend**: Firebase Firestore & optional Auth
+* **Firebase SDK**: Modular v10+ imported via CDN
+
+---
+
+## ⚙️ Setup & Configuration
+
+1. **Clone the repo**
+
+   ```bash
+   git clone https://github.com/your-username/todo-firestore-app.git  
+   cd todo-firestore-app
+   ```
+
+2. **Configure Firebase**
+
+   * Create a Firebase project & enable Firestore
+   * In `scripts/fireBase.js`, replace the config with your own:
+
+     ```js
+     const firebaseConfig = {
+       apiKey: "...",
+       authDomain: "...",
+       projectId: "...",
+       // ...
+     };
+     ```
+
+3. **Include scripts in your HTML**
+
+   ```html
+   <script type="module" src="scripts/app.js"></script>
+   ```
+
+4. **Serve the app**
+   Use a local server (e.g., VSCode Live Server or `npx http-server .`)
+
+---
+
+## 🛠️ How It Works
+
+### ✅ Add Todo
+
+1. Enter a task and click **Add**
+2. `addDoc()` stores it in Firestore
+3. `createUI()` displays it in `<ul>`
+
+### ✏️ Edit Todo
+
+1. Click **EDIT**
+2. Prompt appears; new text is saved via `updateDoc()`
+3. UI updates immediately
+
+### 🗑️ Delete Todo
+
+1. Click **DELETE**
+2. Item removed from UI
+3. (Optional) `deleteDoc()` removes it from Firestore
+
+### ♻️ Optional: Real-Time Sync
+
+Use `onSnapshot()` for live updates when Firestore data changes
+
+---
+
+## 🔍 Key Functions
+
+| Function       | Description                             |
+| -------------- | --------------------------------------- |
+| `addTodo()`    | Add a new task to Firestore + UI        |
+| `getTodos()`   | Load tasks on page load                 |
+| `editTodo()`   | Edit task text + update Firestore       |
+| `deleteTodo()` | Remove from UI (and Firestore)          |
+| `createUI()`   | Builds `<li>` + sets up event listeners |
+
+---
+
+## 🔭 Future Enhancements
+
+* 🔐 Add Firebase Auth for per-user tasks
+* ✅ Track completed tasks status
+* ♻️ Real-time updates via `onSnapshot()`
+* 🔄 Drag-and-drop reordering
+* 🔒 Firestore security rules for user data
+
+---
+
+## 🧚️ Run Locally
+
+1. Launch a static server
+2. Open `index.html`
+3. Add, edit, delete tasks—see Firestore data update live
+
+---
+
+👤 Author
+
+Umair Ahmed Ansari
+
+📧 Email: umair.ansari.92@gmail.com
+
+📧 Alternate: dataversetechnologies6@gmail.com
+
+📱 WhatsApp / Mobile: +923138624722
+
+🌐 Portfolio: https://dataversetechnologies.vercel.app/
+
+🔗 LinkedIn: linkedin.com/in/umairansari92
+
+🌲 Linktree: linktr.ee/umair.ansari.92
+
+📷 Instagram: @umair.ansari.92 | @dataversetechnologies
+---
+
+## 📜 License
+
+This project is licensed under the [MIT License](LICENSE).
