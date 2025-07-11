@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Smooth Morph with Custom Gradient</title>
+  <style>
+    body {
+      margin: 0;
+      background: #b38484;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    svg {
+      width: 300px;
+      height: 300px;
+    }
+
+    path {
+      fill: url(#customGradient);
+    }
+  </style>
+</head>
+<body>
+
+  <svg viewBox="0 0 100 100">
+    <defs>
+      <!-- Apply your custom repeating-linear-gradient as a pattern -->
+      <pattern id="customPattern" patternUnits="userSpaceOnUse" width="100" height="100">
+        <rect width="100%" height="100%" fill="black" />
+        <rect width="100%" height="100%" fill="url(#customGradient)" />
+      </pattern>
+
+      <!-- Your repeating-linear-gradient emulated via SVG gradient -->
+      <linearGradient id="customGradient" gradientTransform="rotate(2)">
+        <stop offset="10%" stop-color="#003153"/>
+        <stop offset="10%" stop-color="#1b1b1b"/>
+        <stop offset="15%" stop-color="#000000"/>
+        <stop offset="15%" stop-color="#003153"/>
+        <stop offset="25%" stop-color="#1b1b1b"/>
+        <stop offset="30%" stop-color="#000000"/>
+      </linearGradient>
+    </defs>
+
+    <path id="morphPath" d="M50 0 L100 100 L0 100 Z" fill="url(#customGradient)" />
+  </svg>
+
+  <!-- GSAP Core -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <!-- MorphSVGPlugin (Free Lite) -->
+  <script src="https://assets.codepen.io/16327/MorphSVGPlugin3.min.js"></script>
+
+  <script>
+    const shapes = [
+      "M50 0 L100 100 L0 100 Z", // Triangle
+      "M0 0 L100 0 L100 100 L0 100 Z", // Square
+      "M50 0 L100 50 L50 100 L0 50 Z", // Diamond
+      "M50 0 L60 35 L98 35 L66 58 L78 91 L50 70 L22 91 L34 58 L2 35 L40 35 Z", // Star
+      "M50,0 C77,0 100,23 100,50 C100,77 77,100 50,100 C23,100 0,77 0,50 C0,23 23,0 50,0 Z", // Circle
+      "M0 45 L100 45 L100 55 L0 55 Z", // Horizontal line
+      "M45 0 L55 0 L55 100 L45 100 Z" // Vertical line
+    ];
+
+    const morphPath = document.getElementById("morphPath");
+    let i = 0;
+
+    function morph() {
+      gsap.to(morphPath, {
+        duration: 2,
+        ease: "power2.inOut",
+        morphSVG: {
+          shape: shapes[i % shapes.length],
+          shapeIndex: 0
+        }
+      });
+      i++;
+    }
+
+    setInterval(morph, 3000);
+    morph(); // Initial start
+  </script>
+
+</body>
+</html>
