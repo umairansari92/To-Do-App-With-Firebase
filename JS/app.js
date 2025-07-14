@@ -37,6 +37,7 @@ const fetchUserData = async () => {
         <div class="cardContainer">
           <p class="userName">${obj.fname} ${obj.lname}</p>
           <p class="userEmail">${obj.semail}</p>
+          <button class="logOutBtn" onclick="window.location.replace('../index.html')">Logout</button>
         </div>`;
     }
   } catch (error) {
