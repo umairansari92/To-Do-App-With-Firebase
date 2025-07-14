@@ -21,13 +21,18 @@ const logIn = async () => {
             if (user.semail === email && user.spassword === password) {
                 isUserFound = true;
 
-               
+
 
 
                 // ✅ Redirect to dashboard
                 window.location.replace("../HTML/dashboard.html")
             }
         });
+
+        // ✅ Save user name in localStorage (optional)
+        localStorage.setItem("userName", `${fname} ${lname}`);
+        // ✅ Save user UID in localStorage
+        localStorage.setItem("userId", userUid);
 
         if (!isUserFound) {
             Swal.fire({
