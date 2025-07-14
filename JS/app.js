@@ -116,16 +116,19 @@ const editTask = async (ele, docId) => {
     confirmButtonText: 'Save',
   });
 
-  if (!editValue) return;
+  if (!editValue.isConfirmed || !editValue.value) return;
 
-  taskText.textContent = editValue;
+  const newValue = editValue.value;
+
+  taskText.textContent = newValue;
 
   await updateDoc(doc(db, "todos", docId), {
-    task: editValue
+    task: newValue
   });
 
   Swal.fire('Updated!', 'Your task has been updated.', 'success');
 };
+
 
 // Complete Button
 const completedTask = async (ele, docId) => {
