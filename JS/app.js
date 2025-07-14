@@ -1,96 +1,142 @@
-import { db, collection, addDoc } from "./fireBase.js"
-const addTaskBtn = document.getElementById("addTaskBtn")
-const taskList = document.getElementById("taskList");
+import {
+  db, collection, addDoc, deleteDoc, doc, updateDoc,
+  getDoc,
+} from "./fireBase.js"
+// const addTaskBtn = document.getElementById("addTaskBtn")
+// const taskList = document.getElementById("taskList");
 const toDoCollection = collection(db, "todos");
+
+// Fetch user data from Firestore
+const fetchUserData = async () => {
+  const userUid = localStorage.getItem("userId");
+
+  if (!userUid) {
+    console.warn("❌ UID not found in localStorage. Redirecting to login...");
+    window.location.replace("../index.html");
+
+    return;
+  }
+
+  try {
+    const userDoc = await getDoc(doc(db, "users", userUid));
+    const userData = userDoc.data();
+    console.log("✅ User data fetched:", userData);
+    if (!userData) {
+      console.warn("❌ No user data found.");
+      return;
+    }
+
+    console.log("✅ User:", userData);
+
+    const cardListing = document.getElementById("cardListing");
+    cardListing.innerHTML = "";
+
+    // Example loop for display (replace `tempArr` with your data)
+    for (const obj of [userData]) {
+      cardListing.innerHTML += `
+        <div class="cardContainer">
+          <p class="userName">${obj.fname} ${obj.lname}</p>
+          <p class="userEmail">${obj.semail}</p>
+        </div>`;
+    }
+  } catch (error) {
+    console.error("🔥 Error fetching user data:", error.message);
+  }
+};
 
 
 // Main function Create Task
-async function createTask() {
+const createTask = async () => {
   const input = document.getElementById("input");
   const data = { task: input.value }
   if (!input.value) {
-    const notification = document.getElementById("notification");
-    notification.style.display = "block";
-    notification.innerHTML = "Please Enter Value First...";
-
-    setTimeout(function () {
-      notification.style.display = "none";
-    }, 3000);
+    Swal.fire({
+      title: 'Missing Task!',
+      text: 'Please enter something before adding.',
+      icon: 'warning',
+      confirmButtonText: 'Got it!'
+    });
     return;
   }
+
   try {
-    // Create Li Element
-    const task = document.createElement("li");
-    task.className = "task";
+    const taskList = document.getElementById("taskList");
+    // Save to Firestore
     const docRef = await addDoc(toDoCollection, data)
     console.log("✅ Task saved to Firestore with ID:", docRef.id);
-    // Create Sapn in li For Text
-
-    const taskText = document.createElement("span");
-    taskText.innerHTML = input.value;
-    task.append(taskText);
-
-    // Create Delete Button
-
-    const delBtn = document.createElement("button");
-    delBtn.innerHTML = '<i class="fas fa-trash"></i>';
-    delBtn.addEventListener("click", function () {
-      deleteTask(this);
-    });
-
-    // Create Edit Button
-    const editBtn = document.createElement("button");
-    editBtn.innerHTML = '<i class="fas fa-edit"></i>';
-    editBtn.addEventListener("click", function () {
-      editTask(this);
-    });
-
-    // Create Complete Button
-    const CompleteBtn = document.createElement("button");
-    CompleteBtn.innerHTML = `<i class="fas fa-check"></i>`;
-    CompleteBtn.addEventListener("click", function () {
-      completedTask(this);
-    });
-
-    task.append(editBtn);
-    task.append(delBtn);
-    task.append(CompleteBtn);
-
-    taskList.append(task);
+    taskList.innerHTML += `<li class="task" id="${docRef.id}">
+                    <span id="taskText">${data.task}</span>
+                    <button id="editBtn" onclick="editTask(this, '${docRef.id}')"><i class="fas fa-edit"></i></button>
+                    <button id="deleteBtn" onclick="deleteTask(this, '${docRef.id}')"><i class="fas fa-trash"></i></button>
+                    <button id="completeBtn" onclick="completedTask(this, '${docRef.id}')"><i class="fas fa-check"></i></button>
+                </li>`
     input.value = "";
 
-
-
   } catch (error) {
-    console.log(error.message)
+    swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: error.message,
+    });
   }
 }
+
+
 // Delete Button
-function deleteTask(delBtn) {
-  delBtn.parentNode.remove();
+const deleteTask = async (ele, docId) => {
+  const confirmResult = await Swal.fire({
+    title: 'Are you sure?',
+    text: "You won't be able to revert this!",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonText: 'Yes, delete it!',
+    cancelButtonText: 'No, keep it',
+    reverseButtons: true
+  })
+  if (confirmResult.isConfirmed) {
+    ele.parentNode.remove();
+    swal.fire(
+      'Deleted!',
+      'Your task has been deleted.',
+      'success'
+    )
+  }
+  await deleteDoc(doc(db, "todos", docId));
 }
 // Edit Button
-function editTask(editBtn) {
-  const li = editBtn.parentNode;
-  const taskText = li.querySelector("span");
+const editTask = async (ele, docId) => {
   const currentText = taskText.textContent;
 
-  const editValue = prompt("Please Enter Edit Value...", currentText);
+  const editValue = await Swal.fire({
+    title: 'Edit Task',
+    input: 'text',
+    inputLabel: 'Task Text',
+    inputValue: currentText,
+    showCancelButton: true,
+    confirmButtonText: 'Save',
+  });
 
-  if (!editValue) {
-    alert("Please enter a valid value");
-    return;
-  }
+  if (!editValue) return;
 
   taskText.textContent = editValue;
-}
+
+  await updateDoc(doc(db, "todos", docId), {
+    task: editValue
+  });
+
+  Swal.fire('Updated!', 'Your task has been updated.', 'success');
+};
 
 // Complete Button
-function completedTask(CompleteBtn) {
-  const span =
-    CompleteBtn.previousElementSibling.previousElementSibling
-      .previousElementSibling;
-  span.classList.add("liLine");
-  console.log(span);
-}
-addTaskBtn.addEventListener("click", createTask)
+const completedTask = async (ele, docId) => {
+  const taskItem = ele.parentNode;
+  taskItem.style.color = "gray";
+  taskItem.style.textDecoration = "line-through";
+};
+
+
+window.fetchUserData = fetchUserData;
+window.createTask = createTask;
+window.deleteTask = deleteTask;
+window.editTask = editTask;
+window.completedTask = completedTask;

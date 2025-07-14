@@ -7,15 +7,20 @@
 body {
   font-family: "Arial", sans-serif;
   background-color: #003153;
-  background-image: repeating-linear-gradient(
-    25deg,
+  background-image: url(../hand-1868015_1920.jpg);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  /* background-image: repeating-linear-gradient(
+    58deg,
     #003153 10%,
     #1b1b1b 10%,
     #000000 15%,
     #003153 15%,
     #1b1b1b 10%,
     #000000 30%
-  );
+  ); */
   color: #000000;
   text-align: center;
   padding: 50px;
@@ -104,7 +109,7 @@ body {
   box-shadow: 0 0 10px rgba(255, 255, 255, 0.4);
 }
 
-#taskList {
+.result-container {
   margin-top: 20px;
 }
 .task {
@@ -154,6 +159,40 @@ body {
   color: #645d5d;
 }
 
+.cardContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 35%;
+  height: 150px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: rgb(255, 255, 255);
+  border-radius: 12px;
+  margin: 20px auto;
+}
+
+.cardContainer .userName{
+  color: #fafafa;
+  font-size: 35px;
+  text-decoration: underline dashed;
+  font-variant: small-caps;
+  font-family: "Poppins", sans-serif;
+  font-weight: 700;
+  margin: 10px;
+}
+.cardContainer .userEmail {
+  color: #fafafa;
+  font-size: 20px;
+  font-family: "Roboto", sans-serif;
+  font-weight: 500;
+  margin: 10px;
+}
+
 .formContainer {
   background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(10px);
@@ -172,17 +211,17 @@ body {
   border-radius: 16px;
 }
 
-.logInInput{
+.logInInput {
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-wrap: wrap; 
+  flex-wrap: wrap;
   gap: 20px;
   margin: 25px auto;
 }
 
-.logInInput input{
-   width: 100%;
+.logInInput input {
+  width: 100%;
   /* max-width: 400px; */
   padding: 12px 20px;
   border-radius: 50px;
@@ -229,7 +268,7 @@ body {
   box-shadow: 0 0 10px rgba(255, 255, 255, 0.4);
 }
 
-#signUpBtn{
+#signUpBtn {
   width: 30%;
   padding: 12px 20px;
   border-radius: 10px;
@@ -250,7 +289,7 @@ body {
   box-shadow: 0 0 10px rgba(255, 255, 255, 0.4);
 }
 
- a {
+a {
   background-image: linear-gradient(
     to right,
     #54b3d6,
@@ -269,8 +308,8 @@ body {
   font-size: 20px;
 }
 
- a:before{
-  content: '';
+a:before {
+  content: "";
   background: #54b3d6;
   display: block;
   position: absolute;
@@ -281,11 +320,10 @@ body {
   transition: all 0.5s ease-in-out;
 }
 
- a:hover {
- background-position: 0;
+a:hover {
+  background-position: 0;
 }
 
- a:hover::before{
+a:hover::before {
   width: 100%;
 }
-

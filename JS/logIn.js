@@ -21,12 +21,11 @@ const logIn = async () => {
             if (user.semail === email && user.spassword === password) {
                 isUserFound = true;
 
-                // ✅ Save user name in localStorage (optional)
-                localStorage.setItem("userName", user.fname);
-                localStorage.setItem("userId", doc.id);
+               
+
 
                 // ✅ Redirect to dashboard
-                window.location.replace("../HTML/deshboard.html")
+                window.location.replace("../HTML/dashboard.html")
             }
         });
 
