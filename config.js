@@ -1,9 +1,9 @@
 export const firebaseConfig = {
-  apiKey: import.meta.env.VITE_API_KEY,
-  authDomain: import.meta.env.VITE_AUTH_DOMAIN,
-  projectId: import.meta.env.VITE_PROJECT_ID,
-  storageBucket: import.meta.env.VITE_STORAGE_BUCKET,
-  messagingSenderId: import.meta.env.VITE_MESSAGING_SENDER_ID,
-  appId: import.meta.env.VITE_APP_ID,
-  measurementId: import.meta.env.VITE_MEASUREMENT_ID,
+    apiKey: "AIzaSyB2ysNQLsh16tAlpWokJj9L7oXN5pjipnQ",
+    authDomain: "to-do-app-dc044.firebaseapp.com",
+    projectId: "to-do-app-dc044",
+    storageBucket: "to-do-app-dc044.firebasestorage.app",
+    messagingSenderId: "247900712018",
+    appId: "1:247900712018:web:9ebfc83ed1bc163e6f038b",
+    measurementId: "G-9JENPEXLDZ"
 };
