@@ -1,6 +1,6 @@
 import {
   db, collection, addDoc, deleteDoc, doc, updateDoc,
-  getDoc,
+  getDoc, getDocs
 } from "./fireBase.js"
 // const addTaskBtn = document.getElementById("addTaskBtn")
 // const taskList = document.getElementById("taskList");
@@ -46,6 +46,36 @@ const fetchUserData = async () => {
 };
 
 
+
+
+// Fetch todo data from Firestore....
+const fetchToDoData = async () => {
+  try {
+    const taskList = document.getElementById("taskList");
+    console.log("Fetching tasks from Firestore...", taskList);
+    const querySnapshot = await getDocs(collection(db, "todos"));
+    taskList.innerHTML = ""; // Clear existing tasks
+    querySnapshot.forEach((doc) => {
+      const taskData = doc.data();
+      taskList.innerHTML += `<li class="task" id="${doc.id}">
+      <span id="taskText">${taskData.task}</span>
+      <button id="editBtn" onclick="editTask(this, '${doc.id}')"><i class="fas fa-edit"></i></button>
+      <button id="deleteBtn" onclick="deleteTask(this, '${doc.id}')"><i class="fas fa-trash"></i></button>
+      <button id="completeBtn" onclick="completedTask(this, '${doc.id}')"><i class="fas fa-check"></i></button>
+    </li>`;
+    });
+  } catch (error) {
+    console.error("🔥 Error fetching tasks:", error.message);
+    Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: "Failed to fetch tasks. Please try again later.",
+    });
+  }
+
+}
+
+
 // Main function Create Task
 const createTask = async () => {
   const input = document.getElementById("input");
@@ -83,6 +113,7 @@ const createTask = async () => {
 }
 
 
+
 // Delete Button
 const deleteTask = async (ele, docId) => {
   const confirmResult = await Swal.fire({
@@ -104,6 +135,9 @@ const deleteTask = async (ele, docId) => {
   }
   await deleteDoc(doc(db, "todos", docId));
 }
+
+
+
 // Edit Button
 const editTask = async (ele, docId) => {
   const currentText = taskText.textContent;
@@ -131,6 +165,7 @@ const editTask = async (ele, docId) => {
 };
 
 
+
 // Complete Button
 const completedTask = async (ele, docId) => {
   const taskItem = ele.parentNode;
@@ -139,8 +174,19 @@ const completedTask = async (ele, docId) => {
 };
 
 
+
+// Loader function to fetch data on page load
+const loader = () => {
+  fetchToDoData();
+  fetchUserData();
+}
+
+
+
 window.fetchUserData = fetchUserData;
+window.fetchToDoData = fetchToDoData;
 window.createTask = createTask;
 window.deleteTask = deleteTask;
 window.editTask = editTask;
 window.completedTask = completedTask;
+window.loader = loader;
