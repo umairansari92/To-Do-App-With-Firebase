@@ -39,4 +39,17 @@
     width: 100%;
 
   }
+  .cardContainer .userName{
+  font-size: 30px;
+  font-weight: 500;
+  margin: 5px
+}
+.cardContainer .userEmail {
+  font-weight: 400;
+  margin: 5px;
+}
+
+.logOutBtn {
+  width: 60%;
+}
 }
