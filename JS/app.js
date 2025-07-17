@@ -18,6 +18,8 @@ const fetchUserData = async () => {
   }
 
   try {
+
+    
     const userDoc = await getDoc(doc(db, "users", userUid));
     const userData = userDoc.data();
     console.log("✅ User data fetched:", userData);
@@ -25,6 +27,10 @@ const fetchUserData = async () => {
       console.warn("❌ No user data found.");
       return;
     }
+    // const querySnapshot = await getDocs(collection(db, "users", userUid));
+    // querySnapshot.forEach((doc) => {
+    //   console.log(`${doc.id} => ${doc.data()}`);
+    // });
 
     console.log("✅ User:", userData);
 
