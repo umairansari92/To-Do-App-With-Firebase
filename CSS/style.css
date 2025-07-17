@@ -323,7 +323,7 @@ a:hover::before {
 
 .cardContainer .userName{
   color: #fafafa;
-  font-size: 35px;
+  font-size: 45px;
   text-decoration: underline dashed;
   font-variant: small-caps;
   font-family: "Poppins", sans-serif;

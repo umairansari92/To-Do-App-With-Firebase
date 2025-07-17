@@ -9,6 +9,10 @@
     padding: 10px;
     border-radius: 16px;
   }
+   .cardContainer {
+    width: 65%;
+
+  }
 
 }
 
