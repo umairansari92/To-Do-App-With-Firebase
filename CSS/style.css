@@ -27,7 +27,7 @@ body {
 }
 
 
-
+/* ================== Login page styling ================== */
 .formContainer {
   background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(10px);
@@ -103,6 +103,8 @@ body {
   box-shadow: 0 0 10px rgba(255, 255, 255, 0.4);
 }
 
+
+/* ================== Sign up page styling ================== */
 #signUpBtn {
   width: 30%;
   padding: 12px 20px;
@@ -173,6 +175,11 @@ a:hover::before {
   margin-bottom: 15px;
 }
 
+
+
+
+
+/* ================== Main page styling ================== */
 .container {
   background: rgba(0, 0, 0, 0.2);
   backdrop-filter: blur(8px);
